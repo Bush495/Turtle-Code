@@ -6,6 +6,12 @@ function Mine()
         "iron_ore",
         "redstone_ore",
         "lapis_lazuli_ore",
+        "deepslate_diamond_ore",
+        "deepslate_coal_ore",
+        "deepslate_gold_ore",
+        "deepslate_iron_ore",
+        "deepslate_redstone_ore",
+        "deepslate_lapis_lazuli_ore"
     }
     forwardBlock, forwardData = turtle.inspect()
     turtle.turnLeft()
@@ -17,11 +23,13 @@ function Mine()
     turtle.turnLeft()
     upBlock, upData = turtle.inspectUp()
     downBlock, downData = turtle.inspectDown()
+    i=0
     for i, value in pairs(Valuables) do   
         if (forwardData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.dig()
         end
     end
+    i=0
     for i, value in pairs(Valuables) do    
         if (leftData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.turnLeft()
@@ -29,6 +37,7 @@ function Mine()
             turtle.turnRight()  
         end
     end
+    i=0
     for i, value in pairs(Valuables) do    
         if(backData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.turnLeft()
@@ -38,6 +47,7 @@ function Mine()
             turtle.turnLeft()
         end
     end
+    i=0
     for i, value in pairs(Valuables) do    
         if (rightData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.turnRight()
@@ -45,11 +55,13 @@ function Mine()
             turtle.turnLeft()
         end
     end    
+    i=0
     for i, value in pairs(Valuables) do    
         if (upData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.digUp()
         end
     end
+    i=0
     for i, value in pairs(Valuables) do    
         if (downData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.digDown()
@@ -81,12 +93,12 @@ function tunnelForward()
         turtle.dig()
         turtle.forward()
         X_Axis = X_Axis +1
-    until X_Axis == 100 or ((fuel/2) < X_Axis) 
+    until X_Axis >= 100 or ((fuel/2) < X_Axis) 
     tunnelForwardRecover(X_Axis)
 end
 function tunnelForwardRecover(X_Axis)
     repeat
-        turtle.up()
+        turtle.back()
         X_Axis = X_Axis - 1
     until X_Axis == 1
 end
