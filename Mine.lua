@@ -56,12 +56,13 @@ function tunnelDown(fuel)
         Y_Axis = Y_Axis + 1
     until (downData["name"] == "minecraft:bedrock") or ((fuel/2) < Y_Axis)
     tunnelDownRecover(Y_Axis)
-
+end
 function tunnelDownRecover(Y_Axis)
     repeat
         turtle.up()    
         Y_Axis = Y_Axis - 1
     until Y_Axis == 1
+end
 function tunnelForward()
     X_Axis = 0
     repeat    
@@ -71,6 +72,7 @@ function tunnelForward()
         X_Axis = X_Axis +1
     until X_Axis == 100 or ((fuel/2) < X_Axis) 
     tunnelForwardRecover(X_Axis)
+end
 function tunnelForwardRecover(X_Axis)
     repeat
         turtle.up()
@@ -84,4 +86,5 @@ function Main()
     elseif user_Choice == "tunnel forward" then
         tunnelForward(fuel)
     end
+end
 Main()
