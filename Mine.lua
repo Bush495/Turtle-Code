@@ -1,7 +1,7 @@
 function Mine()
     Valuables = {
-        "coal_ore",
         "diamond_ore",
+        "coal_ore",
         "gold_ore",
         "iron_ore",
         "redstone_ore",
@@ -18,30 +18,30 @@ function Mine()
     upBlock, upData = turtle.inspectUp()
     downBlock, downData = turtle.inspectDown()
     for i, value in pairs(Valuables) do   
-        if (forwardData["name"] == ("minecraft:" .. Valuables[value])) then
+        if (forwardData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.dig()
         end
-        if (leftData["name"] == ("minecraft:" .. Valuables[value])) then
+        if (leftData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.turnLeft()
             turtle.dig()
             turtle.turnRight()  
         end
-        if(backData["name"] == ("minecraft:" .. Valuables[value])) then
+        if(backData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.turnLeft()
             turtle.turnLeft()
             turtle.dig()
             turtle.turnLeft()
             turtle.turnLeft()
         end
-        if (rightData["name"] == ("minecraft:" .. Valuables[value])) then
+        if (rightData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.turnRight()
             turtle.dig()
             turtle.turnLeft()
         end
-        if (upData["name"] == ("minecraft:" .. Valuables[value])) then
+        if (upData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.digUp()
         end
-        if (downData["name"] == ("minecraft:" .. Valuables[value])) then
+        if (downData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.digDown()
         end
     end
