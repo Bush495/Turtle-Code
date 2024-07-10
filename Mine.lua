@@ -81,7 +81,6 @@ function Main()
     user_Choice = io.read()
     if user_choice == "tunnel down" then
         tunnelDown(fuel)
-    end
     elseif user_Choice == "tunnel forward" then
         tunnelForward(fuel)
     end
