@@ -37,10 +37,10 @@ function Mine()
             turtle.dig()
             turtle.turnLeft()
         end
-        if (upData["name"] == ("minecraft:" + Valuables[index])) 
+        if (upData["name"] == ("minecraft:" + Valuables[index])) then
             turtle.digUp()
         end
-        if (downData["name"] == ("minecraft:" + Valuables[index]))
+        if (downData["name"] == ("minecraft:" + Valuables[index])) then
             turtle.digDown()
         end
     end
@@ -79,8 +79,10 @@ function tunnelForwardRecover(X_Axis)
 function Main()
     fuel = turtle.getFuelLevel()
     user_Choice = io.read()
-    if user_choice == "tunnel down"
+    if user_choice == "tunnel down" then
         tunnelDown(fuel)
-    elseif user_Choice == "tunnel forward"
+    end
+    elseif user_Choice == "tunnel forward" then
         tunnelForward(fuel)
+    end
 Main()
