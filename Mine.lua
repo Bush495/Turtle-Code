@@ -17,30 +17,31 @@ function Mine()
     turtle.turnLeft()
     upBlock, upData = turtle.inspectUp()
     downBlock, downData = turtle.inspectDown()
-    for index, value in Valuables do   
-        if (forwardData["name"] == ("minecraft:" + Valuables[index])) then
+    for i, value in pairs(Valuables) do   
+        if (forwardData["name"] == ("minecraft:" + Valuables[value])) then
             turtle.dig()
         end
-        if (leftData["name"] == ("minecraft:" + Valuables[index])) then
+        if (leftData["name"] == ("minecraft:" + Valuables[value])) then
             turtle.turnLeft()
             turtle.dig()
             turtle.turnRight()  
         end
-        if(backData["name"] == ("minecraft:" + Valuables[index])) then
+        if(backData["name"] == ("minecraft:" + Valuables[value])) then
             turtle.turnLeft()
             turtle.turnLeft()
             turtle.dig()
             turtle.turnLeft()
             turtle.turnLeft()
-        if (rightData["name"] == ("minecraft:"+ Valuables[index])) then
+        end
+        if (rightData["name"] == ("minecraft:"+ Valuables[value])) then
             turtle.turnRight()
             turtle.dig()
             turtle.turnLeft()
         end
-        if (upData["name"] == ("minecraft:" + Valuables[index])) then
+        if (upData["name"] == ("minecraft:" + Valuables[value])) then
             turtle.digUp()
         end
-        if (downData["name"] == ("minecraft:" + Valuables[index])) then
+        if (downData["name"] == ("minecraft:" + Valuables[value])) then
             turtle.digDown()
         end
     end
@@ -77,7 +78,8 @@ function tunnelForwardRecover(X_Axis)
     repeat
         turtle.up()
         X_Axis = X_Axis - 1
-    until X_Axis == 1 
+    until X_Axis == 1
+end
 function Main()
     fuel = turtle.getFuelLevel()
     user_Choice = io.read()
