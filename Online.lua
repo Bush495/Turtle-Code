@@ -83,7 +83,7 @@ function lineMine(forwardData, leftData, backData, rightData, upData, downData, 
 end
 function veinMineMain()
     Tunnel = false
-    veinMine = true
+    veinMineCheck = true
     Run = 0
     repeat
         Path = {
@@ -107,43 +107,47 @@ function veinMineMain()
     until Run >= 10
 end
 function veinMine(forwardData, leftData, backData, rightData, upData, downData, Valuables)
-    Path = {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    }
     leftTurnCounter = 0
     rightTurnCounter = 0
     forwardCounter = 0
     upCounter = 0   
-    if (leftData["name"] == ("minecraft:" .. Valuables[i])) then
-        turtle.turnLeft()
-        leftTurnCounter = leftTurnCounter + 1
-        turtle.dig()
-        turtle.forward()
-        forwardCounter = forwardCounter + 1
-        Path = navigationHistory(leftTurnCounter, rightTurnCounter, forwardCounter, upCounter, downData, Path)
-        return Path
+    i = 0
+    for i, value in pairs(Valuables) do     
+        if (leftData["name"] == ("minecraft:" .. Valuables[i])) then
+            turtle.turnLeft()
+            leftTurnCounter = leftTurnCounter + 1
+            turtle.dig()
+            turtle.forward()
+            forwardCounter = forwardCounter + 1
+            Path = navigationHistory(leftTurnCounter, rightTurnCounter, forwardCounter, upCounter, downData, Path)
+            return Path
+        end
     end
-    if (rightData["name"] == ("minecraft:" .. Valuables[i])) then
-        turtle.turnRight()
-        rightTurnCounter= rightTurnCounter + 1
-        turtle.dig()
-        turtle.forward()
-        forwardCounter = forwardCounter + 1
-        Path = navigationHistory(leftTurnCounter, rightTurnCounter, forwardCounter, upCounter, downData, Path)
-        return Path
+    i = 0
+    for i, value in pairs(Valuables) do    
+        if (rightData["name"] == ("minecraft:" .. Valuables[i])) then
+            turtle.turnRight()
+            rightTurnCounter= rightTurnCounter + 1
+            turtle.dig()
+            turtle.forward()
+            forwardCounter = forwardCounter + 1
+            Path = navigationHistory(leftTurnCounter, rightTurnCounter, forwardCounter, upCounter, downData, Path)
+            return Path
+        end
     end
-    if (upData["name"] == ("minecraft:" .. Valuables[i])) then
-        turtle.digUp()
-        return Path
+    i = 0
+    for i, value in pairs(Valuables) do    
+        if (upData["name"] == ("minecraft:" .. Valuables[i])) then
+            turtle.digUp()
+            return Path
+        end
     end
-    if (downData["name"] == ("minecraft:" .. Valuables[i])) then
-        turtle.digDown()
-        return Path
+    i = 0
+    for i, value in pairs(Valuables) do    
+        if (downData["name"] == ("minecraft:" .. Valuables[i])) then
+            turtle.digDown()
+            return Path
+        end
     end
 end
 function navigationHistory(leftTurnCounter, rightTurnCounter, forwardCounter, upCounter, downData, Path)
