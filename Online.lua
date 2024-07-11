@@ -29,7 +29,7 @@ function Inspect(Tunnel, veinMineCheck, Path)
         Path = veinMine(forwardData, leftData, backData, rightData, upData, downData, Valuables)
         for i, value in pairs(Valuables) do   
             if (forwardData["name"] ~= ("minecraft:" .. Valuables[i])) and (leftData["name"] ~= ("minecraft:" .. Valuables[i])) and (backData["name"] ~= (("minecraft:" .. Valuables[i])) and rightData["name"] ~= ("minecraft:" .. Valuables[i])) and (upData["name"] ~= ("minecraft:" .. Valuables[i])) and (backData["name"] ~= ("minecraft:" .. Valuables[i])) then
-                Path[6] = Path[6] + 1
+                Path[6] = 1
             end
         end
         return Path
@@ -106,7 +106,7 @@ function veinMineMain()
         repeat    
             newPath = Inspect(Tunnel, veinMineCheck, Path)
             for i, value in pairs(Path) do
-                Path[i] = Path[i] + newPath[i]
+                Path[i] = newPath[i]
             end
         until Path[6] == 1
         navigationRecover(Path)
