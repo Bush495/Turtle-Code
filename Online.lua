@@ -176,19 +176,19 @@ function navigationHistory(leftTurnCounter, rightTurnCounter, forwardCounter, up
     return Path
 end   
 function navigationRecover(Path)
-    if (Path[1] >= 0)  then    
+    if (Path[1] ~= 0)  then    
         turtle.turnRight()
     end
-    if (Path[2] >= 0) then
+    if (Path[2] ~= 0) then
         turtle.turnLeft()
     end
-    if (Path[3] >= 0) then
+    if (Path[3] ~= 0) then
         turtle.back()
     end
-    if (Path[5] >= 0) then
+    if (Path[5] ~= 0) then
         turtle.down()
     end
-    if (Path[5] >= 0) then
+    if (Path[5] ~= 0) then
         turtle.up()
     end
 end
