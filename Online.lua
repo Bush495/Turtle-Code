@@ -1,4 +1,4 @@
-function Inspect(Tunnel, veinMine)
+function Inspect(Tunnel, veinMineCheck)
     Valuables = {
         "diamond_ore",
         "coal_ore",
@@ -96,7 +96,7 @@ function veinMineMain()
         }
          
         repeat    
-            newPath = Inspect(Tunnel, veinMine)
+            newPath = Inspect(Tunnel, veinMineCheck)
             for i, value in pairs(Path) do
                 Path[i] = Path[i] + newPath[i]
             end
@@ -175,9 +175,9 @@ end
 function tunnelDown(fuel)    
     Y_Axis = 0
     Tunnel = true
-    veinMine = false
+    veinMineCheck = false
     repeat
-        Inspect(Tunnel, veinMine)
+        Inspect(Tunnel, veinMineCheck)
         downBlock, downData = turtle.inspectDown()
         turtle.digDown()
         turtle.suckDown(64, 1)
@@ -197,7 +197,7 @@ function tunnelForward()
     Tunnel = true
     veinMine = false
     repeat    
-        Inspect(Tunnel, veinMine)
+        Inspect(Tunnel, veinMineCheck)
         turtle.dig()
         turtle.forward()
         X_Axis = X_Axis +1
