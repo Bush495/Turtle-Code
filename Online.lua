@@ -28,7 +28,7 @@ function Inspect(Tunnel, veinMineCheck, Path)
     elseif veinMineCheck == true then    
         Path = veinMine(forwardData, leftData, backData, rightData, upData, downData, Valuables)
         for i, value in pairs(Valuables) do   
-            if (forwardData["name"] == ("minecraft:" .. Valuables[i])) and (leftData["name"] ~= ("minecraft:" .. Valuables[i])) and (backData["name"] ~= (("minecraft:" .. Valuables[i])) and rightData["name"] ~= ("minecraft:" .. Valuables[i])) and (upData["name"] ~= ("minecraft:" .. Valuables[i])) and (backData["name"] ~= ("minecraft:" .. Valuables[i])) then
+            if (forwardData["name"] ~= ("minecraft:" .. Valuables[i])) and (leftData["name"] ~= ("minecraft:" .. Valuables[i])) and (backData["name"] ~= (("minecraft:" .. Valuables[i])) and rightData["name"] ~= ("minecraft:" .. Valuables[i])) and (upData["name"] ~= ("minecraft:" .. Valuables[i])) and (backData["name"] ~= ("minecraft:" .. Valuables[i])) then
                 Path[6] = 1
             end
         end
@@ -176,19 +176,19 @@ function navigationHistory(leftTurnCounter, rightTurnCounter, forwardCounter, up
     return Path
 end   
 function navigationRecover(Path)
-    if (Path[0] >= 0)  then    
+    if (Path[1] >= 0)  then    
         turtle.turnRight()
     end
-    if (Path[1] >= 0) then
+    if (Path[2] >= 0) then
         turtle.turnLeft()
     end
-    if (Path[2] >= 0) then
+    if (Path[3] >= 0) then
         turtle.back()
     end
-    if (Path[3] >= 0) then
+    if (Path[5] >= 0) then
         turtle.down()
     end
-    if (Path[4] >= 0) then
+    if (Path[5] >= 0) then
         turtle.up()
     end
 end
