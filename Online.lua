@@ -1,4 +1,4 @@
-function Inspect(Tunnel, veinMineCheck)
+function Inspect(Tunnel, veinMineCheck, Path)
     Valuables = {
         "diamond_ore",
         "coal_ore",
@@ -104,11 +104,11 @@ function veinMineMain()
         }
          
         repeat    
-            newPath = Inspect(Tunnel, veinMineCheck)
+            newPath = Inspect(Tunnel, veinMineCheck, Path)
             for i, value in pairs(Path) do
                 Path[i] = Path[i] + newPath[i]
             end
-        until Path[5] == 1
+        until Path[6] == 1
         navigationRecover(Path)
         turtle.forward()
         Run = Run + 1
