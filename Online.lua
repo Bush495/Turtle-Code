@@ -231,13 +231,13 @@ function Main()
     fuel = turtle.getFuelLevel()
     print("Status: online Fuel: " .. fuel .. ", what would you like to do?")
     user_Choice = io.read()
-    if user_choice == "tunnel down" then
+    if user_Choice == "tunnel down" then
         tunnelDown(fuel)
     elseif user_Choice == "tunnel forward" then
         tunnelForward(fuel)
     elseif user_Choice == "vein mine" then
         veinMineMain()
-    else then 
+    else 
         Main()
     end
 end
