@@ -237,6 +237,8 @@ function Main()
         tunnelForward(fuel)
     elseif user_Choice == "vein mine" then
         veinMineMain()
+    else then 
+        Main()
     end
 end
 Main()
