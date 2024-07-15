@@ -26,10 +26,10 @@ function Inspect(Tunnel, veinMineCheck)
     if Tunnel == true then
         lineMine(forwardData, leftData, backData, rightData, upData, downData, Valuables)
     elseif veinMineCheck == true then    
-        for i, value in pairs(Valuables)
+        for i, value in pairs(Valuables) then
             repeat
                 veinMine(forwardData, leftData, backData, rightData, upData, downData, Valuables)
-            until 1 == 1
+            until (forwardData["name"] ~= ("minecraft:" .. Valuables[i])) and (backData["name"] ~= ("minecraft:" .. Valuables[i])) and (rightData["name"] ~= ("minecraft:" .. Valuables[i])) and (leftData["name"] ~= ("minecraft:" .. Valuables[i])) and (upData["name"] ~= ("minecraft:" .. Valuables[i])) and (downData["name"] ~= ("minecraft:" .. Valuables[i]))
         end
     end
 end
