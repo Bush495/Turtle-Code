@@ -194,10 +194,7 @@ function navigationRecover(Path)
 end
 function tunnelDown(fuel)    
     Y_Axis = 0
-    Tunnel = true
-    veinMineCheck = false
     repeat
-        Inspect(Tunnel, veinMineCheck)
         downBlock, downData = turtle.inspectDown()
         turtle.digDown()
         turtle.suckDown(64, 1)
@@ -232,7 +229,7 @@ function tunnelForwardRecover(X_Axis)
 end
 function Main()
     fuel = turtle.getFuelLevel()
-    print("Status: online Fuel:" .. fuel .. ",what would you like to do?")
+    print("Status: online Fuel: " .. fuel .. ", what would you like to do?")
     user_Choice = io.read()
     if user_choice == "tunnel down" then
         tunnelDown(fuel)
