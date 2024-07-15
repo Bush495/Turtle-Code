@@ -1,4 +1,4 @@
-function Inspect(Tunnel, veinMineCheck, Path)
+function Inspect(Tunnel, veinMineCheck)
     Valuables = {
         "diamond_ore",
         "coal_ore",
@@ -26,13 +26,10 @@ function Inspect(Tunnel, veinMineCheck, Path)
     if Tunnel == true then
         lineMine(forwardData, leftData, backData, rightData, upData, downData, Valuables)
     elseif veinMineCheck == true then    
-        Path = veinMine(forwardData, leftData, backData, rightData, upData, downData, Valuables)
-        for i, value in pairs(Valuables) do   
-            if (forwardData["name"] ~= ("minecraft:" .. Valuables[i])) and (leftData["name"] ~= ("minecraft:" .. Valuables[i])) and (backData["name"] ~= (("minecraft:" .. Valuables[i])) and rightData["name"] ~= ("minecraft:" .. Valuables[i])) and (upData["name"] ~= ("minecraft:" .. Valuables[i])) and (backData["name"] ~= ("minecraft:" .. Valuables[i])) then
-                Path[6] = 1
-            end
-        end
-        return Path
+        for i, value in pairs(Valuables)
+            repeat
+                veinMine(forwardData, leftData, backData, rightData, upData, downData, Valuables)
+            until (leftData["name"] ~= ("minecraft:" .. Valuables[i])) and (rightData["name"] ~= ("minecraft:" .. Valuables[i])) and (forwardData["name"] ~= ("minecraft:" .. Valuables[i])) and (backData["name"] ~= ("minecraft:" .. Valuables[i])) and (upData["name"] ~= ("minecraft:" .. Valuables[i])) and (downData["name"] ~= ("minecraft:" .. Valuables[i]))
     end
 end
 function lineMine(forwardData, leftData, backData, rightData, upData, downData, Valuables)
@@ -84,114 +81,111 @@ end
 function veinMineMain()
     Tunnel = false
     veinMineCheck = true
-    Run = 0
-    repeat
-        newPath = {
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-        }
-        Path = {
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-        }
-         
-        repeat    
-            newPath = Inspect(Tunnel, veinMineCheck, Path)
-            for i, value in pairs(Path) do
-                Path[i] = newPath[i]
-            end
-        until Path[6] == 1
-        navigationRecover(Path)
+    X_Axis = 0
+    X1, Y1, Z1 = gps.locate()
+    repeat 
+        Inspect(Tunnel, veinMineCheck)
         turtle.forward()
-        Run = Run + 1
-    until Run >= 10
+        X_Axis = X_Axis + 1
+    until X_Axis >= 10
+    veinMineRecover1(X, Y, Z)
 end
-function veinMine(forwardData, leftData, backData, rightData, upData, downData, Valuables)
-    leftTurnCounter = 0
-    rightTurnCounter = 0
-    forwardCounter = 0
-    upCounter = 0   
+function veinMine(forwardData, leftData, backData, rightData, upData, downData, Valuables)   
     i = 0
     for i, value in pairs(Valuables) do     
         if (leftData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.turnLeft()
-            leftTurnCounter = leftTurnCounter + 1
             turtle.dig()
             turtle.forward()
-            forwardCounter = forwardCounter + 1
-            Path = navigationHistory(leftTurnCounter, rightTurnCounter, forwardCounter, upCounter, downData, Path)
-            return Path
         end
     end
     i = 0
     for i, value in pairs(Valuables) do    
         if (rightData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.turnRight()
-            rightTurnCounter= rightTurnCounter + 1
             turtle.dig()
             turtle.forward()
-            forwardCounter = forwardCounter + 1
-            Path = navigationHistory(leftTurnCounter, rightTurnCounter, forwardCounter, upCounter, downData, Path)
-            return Path
         end
     end
     i = 0
     for i, value in pairs(Valuables) do    
         if (upData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.digUp()
-            return Path
         end
     end
     i = 0
     for i, value in pairs(Valuables) do    
         if (downData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.digDown()
-            return Path
         end
     end
 end
-function navigationHistory(leftTurnCounter, rightTurnCounter, forwardCounter, upCounter, downData, Path)
-    Path = {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    }
-    Path[1] = leftTurnCounter
-    Path[2] = rightTurnCounter
-    Path[3] = forwardCounter
-    Path[4] = upCounter
-    Path[5] = downData
-
-    return Path
-end   
-function navigationRecover(Path)
-    if (Path[1] ~= 0)  then    
-        turtle.turnRight()
+function veinMineRecover1(X1, Y1, Z1)
+    Facing = "null"
+    X3, Y3, Z3 = gps.locate()
+    Front = turtle.detect()
+    turtle.dig()
+    turtle.forward()
+    X4, Y4, Z4 = gps.locate()
+    XF = X4 - X3
+    ZF = Z4 - Z3
+    -- postive X
+    if XF > 0 then
+        Facing = "East"
+    -- negative X
+    elseif XF < 0 then
+        Facing = "West"
+    -- postive Z
+    elseif ZF > 0 then
+        Facing = "South"
+    -- negative Z
+    elseif ZF < 0 then
+        Facing = "North"
     end
-    if (Path[2] ~= 0) then
-        turtle.turnLeft()
+    if Facing == "North" then 
+        turtle.right()
+    elseif Facing == "South" then
+        turtle.left()
+    elseif Facing == "West" then
+        turtle.left()
+        turtle.left()
     end
-    if (Path[3] ~= 0) then
-        turtle.back()
-    end
-    if (Path[5] ~= 0) then
-        turtle.down()
-    end
-    if (Path[5] ~= 0) then
-        turtle.up()
-    end
-end
+    X2, Y2, Z2 = gps.locate()
+    XR = X2 - X1
+    YR = Y2 - Y1
+    ZR = Z2 - Z1
+    repeat    
+        -- moved East counter with West
+        if XR > 0 then
+            turtle.turnRight()
+            turtle.turnRight()
+            turtle.dig()
+            turtle.forward()
+            turtle.turnRight()
+            turtle.turnRight()
+            XR = XR - 1
+        -- moved West counter with East
+        elseif XR < 0 then
+            turtle.dig()
+            turtle.forward()
+            XR = XR + 1
+        -- moved South counter with North
+        elseif ZR > 0 then
+            turtle.right()
+            turtle.dig()
+            turtle.forward()
+            turtle.left()
+            ZR = ZR - 1
+        -- moved North counter with South
+        elseif ZR < 0 then
+            turtle.left()
+            turtle.dig()
+            turtle.forward()
+            turtle.right()
+            ZR = ZR + 1
+        end
+    until (XR == 0) and (XR == 0)
+end 
 function tunnelDown(fuel)    
     Y_Axis = 0
     repeat
