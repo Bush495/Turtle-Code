@@ -94,6 +94,11 @@ end
 function veinMine(forwardData, leftData, backData, rightData, upData, downData, Valuables)   
     i = 0
     for i, value in pairs(Valuables) do     
+        if (forwardData["name"] == ("minecraft:" .. Valuables[i])) then
+            turtle.dig()
+        end
+    end
+    for i, value in pairs(Valuables) do     
         if (leftData["name"] == ("minecraft:" .. Valuables[i])) then
             turtle.turnLeft()
             turtle.dig()
